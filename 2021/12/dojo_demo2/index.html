@@ -7,15 +7,21 @@
 
   <!--dojoConfig-->
   <script>
+    // var arguments = []; // rhino fails if it's not set up
     var dojoConfig = {
+      has: {
+        // "host-rhino": true, // why some rhino platform is a key to override baseUrl?
+      },
       parseOnLoad: true,
+      isDebug: true,
       async: true,
-      cacheBust: true, // Get "fresh" resources,
+      cacheBust: false, // Get "fresh" resources,
       baseUrl: "/app",
       packages: [ 
         {name: "dojo", location: "/node_modules/dojo"},
         {name: "dojox", location: "/node_modules/dojox"},
-        {name: "dijit", location: "/node_modules/dijit"}
+        {name: "dijit", location: "/node_modules/dijit"},
+        {name: "app", location: "./"}
       ]
     };
   </script>
@@ -30,7 +36,19 @@
         "app/widgets/MainWidget.js",
         "dojo/domReady!"
       ], function (dom, parser, MainWidget) {
-          parser.parse(); // parseOnLoad: true doesn't run this. Why???
+          // parser.parse();
+          // parseOnLoad: true doesn't run this. Why???
+          // parser.parse({
+          //  scope: "app"
+          // });
+          /**
+          parser.parse({
+            "contextRequire": require,
+            "_dojoParserCtorMap": {
+              "./ContentPane": require('dijit/layout/ContentPane'),
+            }
+          }); 
+          **/
           var greeting = dom.byId('root');
           var widget = new MainWidget();
           widget.placeAt(greeting);
