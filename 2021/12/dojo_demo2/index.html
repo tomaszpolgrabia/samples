@@ -8,14 +8,14 @@
   <!--dojoConfig-->
   <script>
     var dojoConfig = {
-      parseOnLoad: false,
+      parseOnLoad: true,
       async: true,
       cacheBust: true, // Get "fresh" resources,
       baseUrl: "/app",
       packages: [ 
-        {name: "dojo", location: "/node_modules/dojo"}
-        {name: "dojox", location: "/node_modules/x/dojox"},
-        {name: "dijit", location: "/node_modules/x/dijit"},
+        {name: "dojo", location: "/node_modules/dojo"},
+        {name: "dojox", location: "/node_modules/dojox"},
+        {name: "dijit", location: "/node_modules/dijit"}
       ]
     };
   </script>
@@ -26,9 +26,11 @@
     <script>
       require([
         "dojo/dom",
+        "dojo/parser",
         "app/widgets/MainWidget.js",
         "dojo/domReady!"
-      ], function (dom, MainWidget) {
+      ], function (dom, parser, MainWidget) {
+          parser.parse(); // parseOnLoad: true doesn't run this. Why???
           var greeting = dom.byId('root');
           var widget = new MainWidget();
           widget.placeAt(greeting);

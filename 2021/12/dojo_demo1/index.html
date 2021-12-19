@@ -8,12 +8,12 @@
   <!--dojoConfig-->
   <script>
     var dojoConfig = {
-      parseOnLoad: false,
+      parseOnLoad: true,
       async: true,
       cacheBust: true, // Get "fresh" resources,
       baseUrl: "/app",
       packages: [ 
-        {name: "dojo", location: "/node_modules/dojo"}
+        {name: "dojo", location: "/node_modules/dojo"},
         {name: "dojox", location: "/node_modules/dojox"},
         {name: "dijit", location: "/node_modules/dijit"},
       ]
