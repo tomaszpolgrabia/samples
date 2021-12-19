@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Dojo App</title>
+  <meta charset="utf-8" />
+
+  <!--dojoConfig-->
+  <script>
+    var dojoConfig = {
+      parseOnLoad: false,
+      async: true,
+      cacheBust: true, // Get "fresh" resources,
+      baseUrl: "/app",
+      packages: [ 
+        {name: "dojo", location: "/node_modules/dojo"}
+        {name: "dojox", location: "/node_modules/x/dojox"},
+        {name: "dijit", location: "/node_modules/x/dijit"},
+      ]
+    };
+  </script>
+
+  <!--load dojo toolkit-->
+  <script src="/node_modules/dojo/dojo.js"></script>
+
+    <script>
+      require([
+        "dojo/dom",
+        "app/widgets/MainWidget.js",
+        "dojo/domReady!"
+      ], function (dom, MainWidget) {
+          var greeting = dom.byId('root');
+          var widget = new MainWidget();
+          widget.placeAt(greeting);
+          widget.startup();
+      });
+  </script>
+
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+https://github.com/dojo/dojo/blame/master/dojo.js#L1069
+
+why we use baseUrl of dojo itself (not from dojo config) instead of using mapping from dojo config like in packages and finally baseUrl (from dojo config) if not found???
