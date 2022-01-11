@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "dijit": "^1.16.4",
     "dojo": "^1.16.4",
     "dojox": "^1.16.4"

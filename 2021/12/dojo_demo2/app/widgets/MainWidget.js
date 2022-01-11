@@ -5,17 +5,28 @@ define([
 	"dijit/_AttachMixin",
 	"dijit/_WidgetBase",
 	"dojo/_base/declare",
+	"dojo/text!./MainWidget.html",
+	"dijit/TitlePane",
 	"dijit/form/TextBox",
 	"./ChildWidget2"
-], function(require, _TemplatedMixin, _WidgetsInTemplateMixin, _AttachMixin, _WidgetBase, declare) {
+], function(require, _TemplatedMixin, _WidgetsInTemplateMixin, _AttachMixin, _WidgetBase, declare, template) {
 	return declare("app/widgets/MainWidget", [_WidgetBase, _AttachMixin, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		contextRequire: require,
-		templateString: "<div>"
-			// + "Hello World!!! <input data-dojo-type=\"dijit/form/TextBox\" />" 
-			// this works as it's dijit
-			+ "<div data-dojo-type=\"./ChildWidget2\"></div>"
-			// this doesn't work as it's trying to fetch ./node_modules/dojo/ChildWidget which seems to be 
-			// relative to dojo/parser dojo/parser
-			+ "</div>"
+		templateString: template,
+		postCreate: function() {
+			this.inherited(arguments);
+
+			let pane1Toggle = this.pane1.toggle.bind(this.pane1);
+			let pane2Toggle = this.pane2.toggle.bind(this.pane2);
+			this.pane1.arrowNode.innerHTML = '<span class="fa fa-chevron-up"><br /></span> ';
+			this.pane1.toggle = this.pane2.toggle = (function() {
+				this.pane1.arrowNode.innerHTML = this.pane1.open 
+				? '<span class="fa fa-chevron-up"><br /></span> ' 
+				: '<span class="fa fa-chevron-down"><br /></span> ';
+					
+				pane1Toggle();
+				pane2Toggle();
+			}).bind(this);
+		}
 	});
 });
