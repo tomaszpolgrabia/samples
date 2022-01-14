@@ -2,22 +2,27 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
-func main() {
-	fmt.Println("Hello World!!!")
-	f := func(writer http.ResponseWriter, req *http.Request) {
-		writer.Header().Set("Content-Type", "application/json")
-		m := map[string]string{
-			"result": "ok",
-		}
-		p, _ := json.Marshal(m)
-		writer.WriteHeader(201)
-		_, _ = writer.Write(p)
-	}
+type StandardResponse struct {
+	result int
+	status string
+}
 
-	http.HandleFunc("/", f)
-	_ = http.ListenAndServe(":8080", nil)
+func main() {
+	hf := http.HandlerFunc(func(writer http.ResponseWriter, req *http.Request) {
+		writer.Header().Set("Content-Type", "application/json")
+		m := StandardResponse{
+			result: 200,
+			status: "OK",
+		}
+
+		p, _ := json.Marshal(m)
+		writer.WriteHeader(200)
+		_, _ = writer.Write(p)
+	})
+
+	s := http.Server{Addr: ":8080", Handler: hf}
+	_ = s.ListenAndServe()
 }
