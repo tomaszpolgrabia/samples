@@ -11,7 +11,13 @@ type StandardResponse struct {
 }
 
 func main() {
+	sm := http.NewServeMux()
 	hf := http.HandlerFunc(func(writer http.ResponseWriter, req *http.Request) {
+		if req.URL.Path != "/" {
+			http.NotFound(writer, req)
+			return
+		}
+
 		writer.Header().Set("Content-Type", "application/json")
 		m := StandardResponse{
 			Result: 200,
@@ -23,6 +29,20 @@ func main() {
 		_, _ = writer.Write(p)
 	})
 
-	s := http.Server{Addr: ":8080", Handler: hf}
+	hf2 := http.HandlerFunc(func(writer http.ResponseWriter, req *http.Request) {
+		writer.Header().Set("Content-Type", "application/json")
+		m := StandardResponse{
+			Result: 200,
+			Status: "NOK",
+		}
+
+		p, _ := json.Marshal(m)
+		writer.WriteHeader(200)
+		_, _ = writer.Write(p)
+	})
+
+	sm.Handle("/", hf)
+	sm.Handle("/info", hf2)
+	s := http.Server{Addr: ":8080", Handler: sm}
 	_ = s.ListenAndServe()
 }
