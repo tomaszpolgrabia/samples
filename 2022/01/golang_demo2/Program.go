@@ -26,6 +26,7 @@ func handleIndex(writer http.ResponseWriter, _ *http.Request) {
 		writer.WriteHeader(500)
 		_, _ = writer.Write([]byte("Internal server error"))
 		_, _ = fmt.Fprintf(os.Stderr, "Internal server error while marshalling response")
+		return
 	}
 
 	writer.Header().Set("Content-Type", "application/json")
@@ -51,6 +52,7 @@ func handleInfo(writer http.ResponseWriter, _ *http.Request) {
 		writer.WriteHeader(500)
 		_, _ = writer.Write([]byte("Internal server error"))
 		_, _ = fmt.Fprintf(os.Stderr, "Internal server error while marshalling response")
+		return
 	}
 
 	writer.Header().Set("Content-Type", "application/json")
@@ -77,6 +79,7 @@ func handleDefault(writer http.ResponseWriter, _ *http.Request) {
 		writer.WriteHeader(500)
 		_, _ = writer.Write([]byte("Internal server error"))
 		_, _ = fmt.Fprintf(os.Stderr, "Internal server error while marshalling response")
+		return
 	}
 
 	writer.Header().Set("Content-Type", "application/json")
