@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 type StandardResponse struct {
@@ -95,7 +96,19 @@ func handleDefault(writer http.ResponseWriter, _ *http.Request) {
 }
 
 func main() {
-	fmt.Println("Starting new server...")
+	args := os.Args
+
+	var port = 8080
+	if len(args) >= 2 {
+		p, err := strconv.Atoi(args[1])
+		if err != nil {
+			panic(fmt.Errorf("there was a conversion error for port number %v", err))
+			return
+		}
+		port = p
+	}
+
+	fmt.Printf("Starting new server on port %v...", port)
 	r := mux.NewRouter()
 
 	r.HandleFunc("/", handleIndex)
@@ -103,9 +116,11 @@ func main() {
 	r.NotFoundHandler = http.HandlerFunc(handleDefault)
 
 	server := http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprintf(":%d", port),
 		Handler: r,
 	}
 
-	_ = server.ListenAndServe()
+	if err := server.ListenAndServe(); err != nil {
+		panic(fmt.Errorf("got error while starting server %v", err))
+	}
 }
