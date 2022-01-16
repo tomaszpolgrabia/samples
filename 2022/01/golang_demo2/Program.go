@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 	"os"
-	"strconv"
 )
 
 type StandardResponse struct {
@@ -96,17 +96,10 @@ func handleDefault(writer http.ResponseWriter, _ *http.Request) {
 }
 
 func main() {
-	args := os.Args
-
-	var port = 8080
-	if len(args) >= 2 {
-		p, err := strconv.Atoi(args[1])
-		if err != nil {
-			panic(fmt.Errorf("there was a conversion error for port number %v", err))
-			return
-		}
-		port = p
-	}
+	var port int
+	flag.IntVar(&port, "p", 8080, "Server port")
+	flag.IntVar(&port, "port", 8080, "Server port")
+	flag.Parse()
 
 	fmt.Printf("Starting new server on port %v...", port)
 	r := mux.NewRouter()
