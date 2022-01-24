@@ -6,6 +6,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,9 +20,15 @@ public class MyMojo
     @Parameter(property = "outputDirectory", defaultValue = "target")
     private File outputDirectory;
 
+    @Parameter(defaultValue = "${project}", required = true, readonly = true)
+    private MavenProject project;
+
     public void execute()
             throws MojoExecutionException {
+
         logger.info("Starting execution...");
+        logger.info(String.format("My-mojo plugin running on %s:%s:%s",
+                project.getGroupId(), project.getArtifactId(), project.getVersion()));
         File f = outputDirectory;
 
         if (!f.exists()) {
