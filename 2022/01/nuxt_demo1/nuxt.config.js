@@ -5,13 +5,15 @@ export default {
   generate: {
     routes: () => {
       console.log('Generating routes...');
-      let listOfFiles = fs.readdirSync(path.join('.', 'data', 'posts'));
+      let listOfPosts = JSON.parse(
+        fs.readFileSync(
+          path.join('.', 'data', 'posts', 'index.json')));
 
-      let postRoutes = listOfFiles.filter((file) => {
-        return file.endsWith('.md');
-      }).map((file) => {
-        return '/post/' + file.substr(0, file.length - 3);
-      });
+      let postRoutes = listOfPosts
+        .map(it => it.slug)
+        .map((slug) => {
+          return '/post/' + slug;
+        });
 
       return postRoutes;
     }

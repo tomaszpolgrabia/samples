@@ -1,0 +1,50 @@
+$breadcrumb-item-color: rgb(0, 0, 0);
+$breadcrumb-item-active-color: rgb(0, 0, 0);
+$breadcrumb-item-hover-color: rgb(0, 0, 0);
+
+@import "~bulma";
+@import "~bulma-timeline";
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.wallpaper {
+  background-image: url("~static/about.jpg");
+  background-size: cover;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  width: 100%;
+  padding: 2rem 5rem;
+}
+
+.bcontent {
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 0.5rem;
+  opacity: 0.8;
+  text-align: justify;
+}
+
+@media screen and (max-width: $tablet) {
+  .bcontent {
+    padding: 1rem;
+  }
+
+  .wallpaper {
+    padding: 1rem;
+  }
+}
+
+h1 {
+  font-size: 1.75em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.25em;
+}

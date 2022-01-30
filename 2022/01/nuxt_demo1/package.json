@@ -9,16 +9,21 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "bulma": "^0.9.3",
+    "bulma-timeline": "^3.0.5",
     "core-js": "^3.19.3",
+    "cypress": "^9.3.1",
     "markdown-it": "^12.3.2",
     "markdown-it-attrs": "^4.1.3",
     "nuxt": "^2.15.8",
+    "start-server-and-test": "^1.14.0",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.15.8"
+    "@nuxt/types": "^2.15.8",
+    "node-sass": "^5.0.0"
   }
 }
