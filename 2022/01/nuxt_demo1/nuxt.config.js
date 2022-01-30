@@ -12,7 +12,7 @@ export default {
       let postRoutes = listOfPosts
         .map(it => it.slug)
         .map((slug) => {
-          return '/post/' + slug;
+          return '/blog/post/' + slug;
         });
 
       return postRoutes;
@@ -24,7 +24,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'nuxt_demo1',
+    title: 'Tomasz Półgrabia\'s BLog',
     htmlAttrs: {
       lang: 'en'
     },
@@ -60,6 +60,11 @@ export default {
       config.node = {
         fs: 'empty'
       };
+
+      // disable for production
+      config.devtool = 'source-map';
     }
-  }
+  },
+
+  ssr: true
 }
