@@ -84,24 +84,22 @@ function findMaximumFlow(graph) {
 	console.log('C weights', c);
 
 	// let's find increasing flow path
-	let p, fl;
+	let result
 	do {
-		let {path, flow} = increasingFlowPath(c, m[graph.source], m[graph.target]);
-		p = path;
-		fl = flow;
-		console.log(`Increasing flow ${flow} path ${path}`);	
-		if (path) {
+		result = increasingFlowPath(c, m[graph.source], m[graph.target]);
+		console.log(`Increasing flow ${result.flow} path ${result.path}`);	
+		if (result.flow) {
 			// new increasing flow path
 			// f increase
 			// c decrease
 
-			for (let i = 1; i < path.length; i++) {
-				c[path[i-1]][path[i]] -= flow;
-				f[path[i-1]][path[i]] += flow;
+			for (let i = 1; i < result.path.length; i++) {
+				c[result.path[i-1]][result.path[i]] -= result.flow;
+				f[result.path[i-1]][result.path[i]] += result.flow;
 			}
 
 		}
-	} while (fl);
+	} while (result.flow);
 
 	console.log(`Flow`, c);
 
