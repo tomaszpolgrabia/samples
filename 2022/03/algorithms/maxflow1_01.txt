@@ -1,0 +1,8 @@
+source s;
+target t;
+
+edge s -> u: 10;
+edge u -> t: 5;
+edge s -> v: 5;
+edge v -> t: 10;
+edge u -> v: 15;
