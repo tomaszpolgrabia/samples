@@ -55,7 +55,7 @@ function pop_heap(heap) {
 }
 
 function insert_heap(heap, val) {
-	return merge_heap(heap, {value: val, height: 0});
+	return merge_heap(heap, {value: val, height: 1});
 }
 
 let values = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
@@ -66,8 +66,26 @@ let heap = {root: null};
 // heap.root = merge_heap(heap.root, {value: 3, height: 1});
 // heap.root = merge_heap(heap.root, {value: -1, height: 1});
 
-for (let el of values) {
-	heap.root = merge_heap(heap.root, {value: el, height: 1});
+if (false) {
+	// naive way of creating leftist heap
+	for (let el of values) {
+		heap.root = merge_heap(heap.root, {value: el, height: 1});
+	}
+} else {
+	// better way of creating heap using queue
+	let queue = [];
+	for (let el of values) {
+		queue.push({value: el, height: 1});
+	}
+
+	while (queue.length > 1) {
+		let h1 = queue.shift();
+		let h2 = queue.shift();
+		let h = merge_heap(h1, h2);
+		queue.push(h);
+	}
+
+	heap.root = queue.shift();
 }
 
 while (heap.root) {
